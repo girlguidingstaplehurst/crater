@@ -11,15 +11,12 @@ jobs:
     steps:
       - name: Checkout git repo
         uses: actions/checkout@v3
-      - name: Generate UUID image name
-        id: uuid
-        run: echo "UUID_TAG_APP=$(uuidgen)" >> $GITHUB_ENV
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/girlguidingstaplehurst/crater:{{ env.UUID_TAG_APP }}
-          tags: type=raw,value=60d
+          images: ghcr.io/girlguidingstaplehurst/crater
+          tags: type=sha
       - name: Build and Push Image to ghcr.io registry
         uses: docker/build-push-action@v2
         with:
@@ -41,16 +38,13 @@ jobs:
       - name: Checkout git repo
         uses: actions/checkout@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2        
-      - name: Generate UUID image name
-        id: uuid
-        run: echo "UUID_TAG_NGINX=$(uuidgen)" >> $GITHUB_ENV
+        uses: docker/setup-buildx-action@v2       
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/girlguidingstaplehurst/crater-nginx:${{ env.UUID_TAG_NGINX }}
-          tags: type=raw,value=60d
+          images: ghcr.io/girlguidingstaplehurst/crater-nginx
+          tags: type=sha
       - name: Build and Push Image to ghcr.io registry
         uses: docker/build-push-action@v2
         with:
@@ -76,15 +70,12 @@ jobs:
         uses: actions/checkout@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2        
-      - name: Generate UUID image name
-        id: uuid
-        run: echo "UUID_TAG_CROND=$(uuidgen)" >> $GITHUB_ENV
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/girlguidingstaplehurst/crater-crond:${{ env.UUID_TAG_CROND }}
-          tags: type=raw,value=60d
+          images: ghcr.io/girlguidingstaplehurst/crater-crond
+          tags: type=sha
       - name: Build and Push Image to registry.uffizzi.com ephemeral registry
         uses: docker/build-push-action@v2
         with:
