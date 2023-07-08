@@ -1,7 +1,6 @@
 name: Build PR Image
 on:
-  pull_request:
-    types: [opened,synchroize,reopened,closed]
+  on: [push, pull_request]
 
 jobs:
 
